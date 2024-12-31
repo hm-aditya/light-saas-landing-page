@@ -1,3 +1,5 @@
+"use client";
+import {motion } from "framer-motion";
 import CheckIcon from "@/assets/check.svg";
 import { twMerge } from "tailwind-merge";
 const pricingTiers = [
@@ -63,7 +65,7 @@ export const Pricing = () => {
             exclusive features.
           </p>
         </div>
-        <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
+        <div  className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
           {pricingTiers.map(
             ({
               title,
@@ -74,7 +76,7 @@ export const Pricing = () => {
               features,
             }) => (
               <div
-                className={twMerge(
+             key={title} className={twMerge(
                   "card",
                   inverse === true && "bg-black text-white"
                 )}
@@ -90,9 +92,12 @@ export const Pricing = () => {
                   </h3>
                   {popular === true && (
                     <div className="inline-flex text-sm px-4 py-1.5 border border-white/20 rounded-xl">
-                      <span className="bg-[linear-gradient(to_right,#dd7ddf,#e1cd86,#bbcb92,#71c2ef,#3bffff,#dd7ddf)] text-transparent bg-clip-text font-medium">
+                      <motion.span
+                      animate={{backgroundPositionX:"-100%"}}
+                      transition={{duration:1 , repeat: Infinity, ease: "linear",repeatType:"loop"}}
+                      className="bg-[linear-gradient(to_right,#dd7ddf,#e1cd86,#bbcb92,#71c2ef,#3bffff,#dd7ddf,#e1cd86,#bbcb92,#71c2ef,#3bffff)] [background-size:200%] text-transparent bg-clip-text font-medium">
                         Popular
-                      </span>
+                      </motion.span>
                     </div>
                   )}
                 </div>
@@ -112,9 +117,9 @@ export const Pricing = () => {
                 >
                   {buttonText}
                 </button>
-                <ul className="flex flex-col gap-5 mt-8">
+                <ul key={title} className="flex flex-col gap-5 mt-8">
                   {features.map((feature) => (
-                    <li className="text-sm flex items-center gap-4">
+                    <li key={feature} className="text-sm flex items-center gap-4">
                       <CheckIcon className="h-6 w-6" />
                       <span>{feature}</span>
                     </li>

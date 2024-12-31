@@ -1,8 +1,16 @@
+"use client";
+import {motion, useScroll, useTransform} from "framer-motion"
 import ArrowRight from "@/assets/arrow-right.svg";
 import starImage from "@/assets/star.png";
 import springImage from "@/assets/spring.png";
 import Image from "next/image";
+import { useRef } from "react";
 export const CallToAction = () => {
+  const sectionRef=useRef(null);
+  const{scrollYProgress}=useScroll({target:sectionRef,
+    offset:["start end","end start"]
+  });
+  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
   return (
     <section className="bg-gradient-to-b from-white to-[#d2dcff] py-24 overflow-x-clip">
       <div className="container">
@@ -12,19 +20,20 @@ export const CallToAction = () => {
             Celebrate the joy of accompolishment with an app designed to track
             your progress and motivate your efforts
           </p>
-          <Image
-            src={starImage}
+          <motion.img
+            src={starImage.src}
             alt="Star Image"
             className="absolute -top-[137px] -left-[350px]"
             height={360}
             width={360}
+             style={{translateY}}
           />
-          <Image
-            src={springImage}
+          <motion.img
+            src={springImage.src}
             alt="Spring Image"
             className="absolute -top-[19px] -right-[331px]"
             height={360}
-            width={360}
+            width={360} style={{translateY}}
           />
         </div>
         <div className="flex gap-2 mt-10 justify-center">
